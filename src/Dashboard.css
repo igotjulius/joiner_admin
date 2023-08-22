@@ -1,0 +1,90 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .sidebar {
+    width: 15%;
+    height: 100vh;
+    background-color: var(--secondaryBackground);
+    padding-top: 20px;
+  }
+  
+  .sidebar h2 {
+    font-family: 'Roboto Flex';
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .tab {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+  }
+  
+  .tab.selected {
+    background-color: grey;
+  }
+  
+  .tab-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .tab-label {
+    font-family: 'Roboto Flex';
+    font-size: 16px;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .content-header {
+    padding-top: 20px;
+    text-align: center;
+  }
+  
+  .divider {
+    height: 1px;
+    border-width: 0;
+    background-color: var(--accent3);
+  }
+  
+  .tab-content {
+    padding: 20px;
+    background-color: var(--secondaryBackground);
+    border-radius: 20px;
+  }
+  
+  .tab-image {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .tab-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  
