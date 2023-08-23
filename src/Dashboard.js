@@ -37,6 +37,14 @@ const Dashboard = () => {
             </div>
             <div className="tab-label">Rentals</div>
           </div>
+          <div
+            className={`tab ${selectedTab === 3 ? 'selected' : ''}`}
+            onClick={() => handleTabChange(3)}
+          >
+            <div className="tab-icon">
+            </div>
+            <div className="tab-label">Cars</div>
+          </div>
           <div className="tab">
             <div className="tab-icon">
             </div>
@@ -64,6 +72,11 @@ const Dashboard = () => {
           {selectedTab === 2 && (
             <div className="tab-image">
               <img src={require('./Frame_96_(3).png')} alt="Rentals" />
+            </div>
+          )}
+          {selectedTab === 3 && (
+            <div className="tab-image">
+              <img src={require('./Frame 96.png')} alt="Cars" />
             </div>
           )}
         </div>
