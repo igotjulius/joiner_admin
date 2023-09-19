@@ -86,5 +86,144 @@
     height: 100%;
     object-fit: cover;
   }
+
+  .car-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
   
+  .car-table th, .car-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .car-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .car-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .car-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .car-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .car-form h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+  }
+  
+  .form-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .form-input button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-input button:hover {
+    background-color: #0056b3;
+  }
+
+  .add-car-button {
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px; 
+    cursor: pointer;
+    margin-left: auto; 
+    margin-right: 30px;
+    margin-top: 10px; 
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-car-button:hover {
+    background-color: #0056b3; 
+  }
+
+  .modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000; /* Ensure the modal is above other elements */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Adjust the width as needed */
+  text-align: center;
+  position: relative;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000; /* Ensure the modal is above other elements */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Adjust the width as needed */
+  text-align: center;
+  position: relative;
+}
+
+/* Center the Modal */
+.center-modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
   
