@@ -1,12 +1,30 @@
 import React from 'react';
+import Modal from 'react-modal';
 
-const CarFormModal = ({ isOpen, onClose, onSubmit, newCarID, newCarName,
-     handleNewCarID, handleNewCarName }) => {
-  
-    return (
-    <div className={`modal ${isOpen ? 'open' : ''}`}>
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'white',
+    borderRadius: '36px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    width: '500px',
+    textAlign: 'center',
+  },
+};
+
+const CarFormModal = ({ isOpen, onClose, onSubmit, newCarID, newCarName, handleNewCarID, handleNewCarName }) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      contentLabel="Add Car Modal"
+      ariaHideApp={false}
+      style = {customStyles}
+    >
       <div className="modal-content">
-        <h2>Add Car</h2>
+        <h2>Enter Car Details</h2>
         <input
           type="text"
           placeholder="Enter Car License Plate"
@@ -15,14 +33,18 @@ const CarFormModal = ({ isOpen, onClose, onSubmit, newCarID, newCarName,
         />
         <input
           type="text"
-          placeholder="Enter Car Name"
+          placeholder="Enter Car Name/Vehicle Type"
           value={newCarName}
           onChange={handleNewCarName}
         />
-        <button onClick={onSubmit}>Add Car</button>
-        <button onClick={onClose}>Close</button>
+        <button className="add-car-button-modal" onClick={onSubmit}>
+          Add Car
+        </button>
+        <button className="add-car-button-modal" onClick={onClose}>
+          Close
+        </button>
       </div>
-    </div>
+    </Modal>
   );
 };
 

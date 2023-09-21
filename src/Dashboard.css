@@ -1,4 +1,4 @@
-.dashboard-container {
+  .dashboard-container {
     display: flex;
     flex-direction: row;
   }
@@ -11,7 +11,6 @@
   }
   
   .sidebar h2 {
-    font-family: 'Roboto Flex';
     font-size: 24px;
     font-weight: bold;
     text-align: center;
@@ -33,24 +32,28 @@
     padding-bottom: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .tab:hover {
-    background-color: rgba(128, 128, 128, 0.2);
+    color: #007BFF;
+  }
+
+  .tab:hover .tab-icon {
+    color: #007BFF;
   }
   
   .tab.selected {
-    background-color: grey;
+    color: #007BFF;
   }
   
   .tab-icon {
     font-size: 24px;
     margin-right: 10px;
+    transition: color 0.3s ease;
   }
   
   .tab-label {
-    font-family: 'Roboto Flex';
     font-size: 16px;
   }
   
@@ -111,50 +114,8 @@
   .car-table tbody tr:hover {
     background-color: #ddd;
   }
-  
-  .car-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .car-form h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .form-input {
-    margin-bottom: 10px;
-  }
-  
-  .form-input input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .form-input button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .form-input button:hover {
-    background-color: #0056b3;
-  }
 
-  .add-car-button {
+  .add-car-button-modal {
     background-color: #007bff; 
     color: #fff; 
     border: none;
@@ -166,64 +127,74 @@
     margin-top: 10px; 
     font-size: 16px;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .add-car-button {
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    border-radius: 16px;
+    padding: 10px 20px; 
+    cursor: pointer;
+    margin-left: auto; 
+    font-size: 22px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
   .add-car-button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3;
+    transform: scale(1.05);
   }
-
-  .modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  z-index: 1000; /* Ensure the modal is above other elements */
-  justify-content: center;
-  align-items: center;
-}
-
+/* Modal Content Styles */
 .modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  width: 400px; /* Adjust the width as needed */
-  text-align: center;
-  position: relative;
+  padding: 0px 20px 0px 20px;
 }
 
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
+/* Modal Title Styles */
+.modal-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Modal Input Styles */
+.modal-content input {
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  z-index: 1000; /* Ensure the modal is above other elements */
-  justify-content: center;
-  align-items: center;
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: white;
-  padding: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  width: 400px; /* Adjust the width as needed */
-  text-align: center;
-  position: relative;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-/* Center the Modal */
-.center-modal {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Modal Button Styles */
+.modal-content button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
 }
+
+.modal-content button:last-child {
+  margin-right: 0;
+}
+
+/* Close Button Styles */
+.modal-content .add-car-button.close-button {
+  background-color: #ccc;
+}
+
+/* Hover State for Buttons */
+.modal-content button:hover {
+  background-color: #0056b3;
+}
+
+
   

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import CarFormModal from './CarFormModal';
+import 'font-awesome/css/font-awesome.min.css';
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -69,7 +70,6 @@ const Dashboard = () => {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    console.log(isModalOpen); // Add this line for debugging
   };
 
   return (
@@ -82,6 +82,7 @@ const Dashboard = () => {
             onClick={() => handleTabChange(0)}
           >
             <div className="tab-icon">
+            <i className="fas fa-tachometer-alt"></i>
             </div>
             <div className="tab-label">Dashboard</div>
           </div>
@@ -90,6 +91,7 @@ const Dashboard = () => {
             onClick={() => handleTabChange(1)}
           >
             <div className="tab-icon">
+              <i className="fas fa-credit-card"></i>
             </div>
             <div className="tab-label">Transactions</div>
           </div>
@@ -98,6 +100,7 @@ const Dashboard = () => {
             onClick={() => handleTabChange(2)}
           >
             <div className="tab-icon">
+            <i className="fas fa-handshake"></i>
             </div>
             <div className="tab-label">Rentals</div>
           </div>
@@ -106,11 +109,13 @@ const Dashboard = () => {
             onClick={() => handleTabChange(3)}
           >
             <div className="tab-icon">
+            <i className="fas fa-car"></i>
             </div>
             <div className="tab-label">Cars</div>
           </div>
           <div className="tab">
             <div className="tab-icon">
+            <i className="fas fa-sign-out-alt"></i>
             </div>
             <div className="tab-label">Logout</div>
           </div>
@@ -118,7 +123,7 @@ const Dashboard = () => {
       </div>
       <div className="main-content">
         <div className="content-header">
-          <h2>Dashboard</h2>
+          <h1>Dashboard</h1>
         </div>
         <hr className="divider" />
         <div className="tab-content">
@@ -140,7 +145,12 @@ const Dashboard = () => {
           )}
           {selectedTab === 3 && (
             <div>
-            <button className="add-car-button" onClick={toggleModal}>Add Car</button>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h3>Car Availability</h3>
+              <button className="add-car-button" onClick={toggleModal}>
+                <i className="fas fa-plus"></i> Add Car
+              </button>
+            </div>
             <CarFormModal
               isOpen={isModalOpen}
               onClose={toggleModal}
@@ -154,7 +164,8 @@ const Dashboard = () => {
               <thead>
                 <tr>
                   <th>License Plate</th>
-                  <th>Car Name</th>
+                  <th>Transaction ID</th>
+                  <th>Vehicle Type</th>
                   <th>Availability</th>
                 </tr>
               </thead>
@@ -162,6 +173,7 @@ const Dashboard = () => {
                 {carData.map((car) => (
                   <tr key={car.id}>
                     <td>{car._id}</td>
+                    <td>{}</td>
                     <td>{car.vehicleType}</td>
                     <td>{car.availability}</td>
                   </tr>
