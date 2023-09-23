@@ -115,21 +115,6 @@
     background-color: #ddd;
   }
 
-  .add-car-button-modal {
-    background-color: #007bff; 
-    color: #fff; 
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px; 
-    cursor: pointer;
-    margin-left: auto; 
-    margin-right: 30px;
-    margin-top: 10px; 
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-
   .add-car-button {
     background-color: #007bff; 
     color: #fff; 
@@ -180,6 +165,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-right: 10px;
+  margin-top: 10px;
 }
 
 .modal-content button:last-child {

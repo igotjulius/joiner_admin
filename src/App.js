@@ -1,30 +1,20 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
-const App = () => {
-  return (
-    <div className="container">
-      <div className="left-container">
-        <h1>JOINER</h1>
-        <div className="content">
-          <div className="section">
-            <h2>Discover Unseen Beauty</h2>
-            <p>Your Adventure Awaits!</p>
-          </div>
-          <div className="section">
-            <input type="text" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <p className="forgot-password">Forgot Password?</p>
-          </div>
-        </div>
-        <button>Login</button>
-        <p className="footer">Copyright 2023</p>
-      </div>
-      <div className="right-container">
-        <p className="quote">“Experience is a wonderful thing.”</p>
-      </div>
-    </div>
-  );
-};
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/login" component={Login} />
+          <Route exact path="/" component={Login} />
+        </Switch>
+      </Router>
+    );
+  }
+}
 
 export default App;
