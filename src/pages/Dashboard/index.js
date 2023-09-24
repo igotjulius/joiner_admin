@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link,} from 'react-router-dom';
 import './index.css';
 import CarFormModal from './CarFormModal';
 import Login from '../Login';
@@ -106,9 +106,12 @@ class Dashboard extends Component {
 
   render() {
         return (
-          <div className="dashboard-container">
-            <div className="sidebar">
+          <div className="row dashboard-container">
+            <div className="col sidebar">
               <h2>Joiner</h2>
+              <Switch>
+                <Route path='/login' component={Login}/>
+              </Switch>
               <div className="tabs">
                 <div
                   className={`tab ${this.state.selectedTab === 0 ? 'selected' : ''}`}
@@ -147,7 +150,7 @@ class Dashboard extends Component {
                   
                   <div className="tab-label">Cars</div>
                 </div>
-                <Link to = '/login' Link style={{textDecoration: 'none', color: 'black'}}>
+                <Link to = '/login' style={{textDecoration: 'none', color: 'black'}}>
                   <div className="tab">
                     <div className="tab-icon">
                     <i className="fas fa-sign-out-alt"></i>
@@ -212,9 +215,9 @@ class Dashboard extends Component {
                           <td>{}</td>
                           <td>{car.vehicleType}</td>
                           <td>{car.availability}</td>
-                          <td style={{ border: 'none', outline: 'none', width: "50px", tableDecoration: "none"}}>
+                          <td style={{ border: 'none', outline: 'none', width: "20px", tableDecoration: "none"}}>
                             <button onClick={() => this.deleteCar(car._id)} className="delete-car-button">
-                            <i className="material-icons">Delete</i>
+                            <i className="fas fa-trash"></i>
                             </button>
                           </td>
                         </tr>
@@ -224,10 +227,7 @@ class Dashboard extends Component {
                   </div>
                 )}
               </div>
-            </div>
-            <Switch>
-              <Route path="/login" component = {Login} />
-            </Switch>
+            </div>  
           </div>
         );
     };
