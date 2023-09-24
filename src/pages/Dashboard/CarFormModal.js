@@ -11,10 +11,7 @@ const customStyles = {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
     width: '500px',
     textAlign: 'center',
-
-  },
-
-  setError: {color: 'red'}
+  }, setError: {color: 'red'}
 };
 
 const CarFormModal = ({ isOpen, onClose, onSubmit }) => {

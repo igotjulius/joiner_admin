@@ -51,7 +51,7 @@ class Dashboard extends Component {
     }
   };
 
-  handleCreateData = async () => {
+  handleCreateData = async (newCarID, newCarName) => {
     try {
       const response = await fetch('https://joiner-backend-v2.onrender.com/admin/car', {
         method: 'POST',
@@ -59,12 +59,12 @@ class Dashboard extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          licensePlate: this.state.newCarID,
-          vehicleType: this.state.newCarName,
+          licensePlate: newCarID,
+          vehicleType: newCarName,
           availability: 'Available',
         }),
       });
-      console.log(response);
+
       if (response.ok) {
         this.fetchData();
         this.setState({ newCarID: '', newCarName: '' });
@@ -190,15 +190,15 @@ class Dashboard extends Component {
                       <i className="fas fa-plus"></i> Add Car
                     </button>
                   </div>
-                  <CarFormModal
-                    isOpen={this.state.isModalOpen}
-                    onClose={this.toggleModal}
-                    onSubmit={this.handleCreateData}
-                    newCarID={this.state.newCarID}
-                    newCarName={this.state.newCarName}
-                    handleNewCarID={this.handleNewCarID}
-                    handleNewCarName={this.handleNewCarName}
-                  />
+                    <CarFormModal
+                      isOpen={this.state.isModalOpen}
+                      onClose={this.toggleModal}
+                      onSubmit={this.handleCreateData}
+                      newCarID={this.state.newCarID}
+                      newCarName={this.state.newCarName}
+                      handleNewCarID={this.handleNewCarID}
+                      handleNewCarName={this.handleNewCarName}
+                    />
                     <table className="car-table">
                     <thead>
                       <tr>
@@ -210,7 +210,7 @@ class Dashboard extends Component {
                     </thead>
                     <tbody>
                       {this.state.carData.map((car)  => (
-                        <tr key={car.id}>
+                        <tr key={car._id}>
                           <td>{car._id}</td>
                           <td>{}</td>
                           <td>{car.vehicleType}</td>
