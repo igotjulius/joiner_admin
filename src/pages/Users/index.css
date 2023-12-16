@@ -1,0 +1,41 @@
+.table-container {
+    max-height: 97vh;
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    text-align: left; 
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: middle; 
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 0.75rem; 
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e6e8eb; 
+}
+
+.table-hover tbody tr {
+    transition: background-color 0.3s ease;
+}

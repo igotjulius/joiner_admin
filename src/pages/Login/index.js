@@ -1,8 +1,58 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './index.css';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+      showPassword: false,
+      errorMessage: '',
+    };
+  }
+  handleInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  handleTogglePassword = () => {
+    this.setState((prevState) => ({
+      showPassword: !prevState.showPassword,
+    }));
+  };
+
+  handleLogin = async () => {
+    const { email, password } = this.state;
+
+    const apiUrl = 'https://joiner-backend-v4.onrender.com/a/login';
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password,
+        }),
+      });
+
+
+      if (response.ok) {
+        this.props.history.push('/dashboard/users');
+      } else {
+        console.log('Login failed');
+        this.setState({ errorMessage: 'Invalid Email/Password' });
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      this.setState({ errorMessage: 'Error during login' });
+    }
+  };
+
   render() {
     return (
       <div className="container">
@@ -14,14 +64,35 @@ class Login extends Component {
               <p>Your Adventure Awaits!</p>
             </div>
             <div className="section">
-              <input type="text" placeholder="Email" />
-              <input type="password" placeholder="Password" />
-              <p className="forgot-password">Forgot Password?</p>
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+              />
+              <input
+                type={this.state.showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+              />
+              <label>
+                <input
+                  type="checkbox"
+                  onChange={this.handleTogglePassword}
+                  checked={this.state.showPassword}
+                  style={{marginRight: '5px'}}
+                />
+                Show Password
+              </label>
+              {this.state.errorMessage && (
+                <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
+              )}
             </div>
           </div>
-          <Link to="/dashboard">
-            <button>Login</button>
-          </Link>
+          <button onClick={this.handleLogin}>Login</button>
           <p className="footer">Copyright 2023</p>
         </div>
         <div className="right-container">
