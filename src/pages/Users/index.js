@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modal from './deleteModal';
 import './index.css';
 
 class Users extends Component {
@@ -7,6 +8,9 @@ class Users extends Component {
         this.state = {
             users: [],
             loading: true,
+            hoveredUserId: null,
+            showModal: false,
+            userIdToDelete: null
         };
     }
 
@@ -28,9 +32,44 @@ class Users extends Component {
             this.setState({ loading: false });
         }
     };
+    
+    handleMouseEnter = (userId) => {
+        this.setState({ hoveredUserId: userId });
+    };
+
+    handleMouseLeave = () => {
+        this.setState({ hoveredUserId: null });
+    };
+    
+    handleDelete = (userId) => {
+        this.setState({ showModal: true, userIdToDelete: userId });
+    };
+
+    handleCancelDelete = () => {
+        this.setState({ showModal: false, userIdToDelete: null });
+    };
+
+    handleConfirmDelete = async () => {
+        const { userIdToDelete } = this.state;
+        try {
+            const response = await fetch(`https://joiner-backend-v4.onrender.com/a/deleteUser/${userIdToDelete}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                const updatedUsers = this.state.users.filter((user) => user._id !== userIdToDelete);
+                this.setState({ users: updatedUsers });
+            } else {
+                console.error('Failed to delete user:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+        this.setState({ showModal: false, userIdToDelete: null });
+    };
 
     render() {
-        const { users, loading } = this.state;
+        const { users, loading, hoveredUserId, showModal, userIdToDelete } = this.state;
 
         return (
             <div className="table-container">
@@ -39,26 +78,50 @@ class Users extends Component {
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) => (
-                                <tr key={user._id}>
-                                    <td>{user._id}</td>
-                                    <td>{user.firstName}</td>
-                                    <td>{user.lastName}</td>
-                                    <td>{user.email}</td>
+                    <>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th></th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {users.map((user) => (
+                                    <tr
+                                        key={user._id}
+                                        onMouseEnter={() => this.handleMouseEnter(user._id)}
+                                        onMouseLeave={this.handleMouseLeave}
+                                    >
+                                        <td>{user._id}</td>
+                                        <td>{user.firstName}</td>
+                                        <td>{user.lastName}</td>
+                                        <td>{user.email}</td>
+                                        <td>
+                                            {hoveredUserId === user._id && (
+                                                <span
+                                                    class="delete-icon"
+                                                    onClick={() => this.handleDelete(user._id)}
+                                                >
+                                                    <i className="fas fa-trash-alt"></i>
+                                                </span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {showModal && (
+                            <Modal
+                                userId={userIdToDelete}
+                                onCancel={this.handleCancelDelete}
+                                onConfirm={this.handleConfirmDelete}
+                            />
+                        )}
+                    </>
                 )}
             </div>
         );

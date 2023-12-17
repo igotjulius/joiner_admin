@@ -6,7 +6,6 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      email: '',
       password: '',
       showPassword: false,
       errorMessage: '',
@@ -25,7 +24,7 @@ class Login extends Component {
   };
 
   handleLogin = async () => {
-    const { email, password } = this.state;
+    const {password } = this.state;
 
     const apiUrl = 'https://joiner-backend-v4.onrender.com/a/login';
 
@@ -45,7 +44,7 @@ class Login extends Component {
         this.props.history.push('/dashboard/users');
       } else {
         console.log('Login failed');
-        this.setState({ errorMessage: 'Invalid Email/Password' });
+        this.setState({ errorMessage: 'Invalid Password' });
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -64,13 +63,7 @@ class Login extends Component {
               <p>Your Adventure Awaits!</p>
             </div>
             <div className="section">
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-              />
+              <strong>Please enter the Admin Password</strong>
               <input
                 type={this.state.showPassword ? 'text' : 'password'}
                 name="password"

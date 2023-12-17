@@ -2,9 +2,7 @@
     max-height: 97vh;
     overflow-y: auto;
 }
-.delete-icon {
-    cursor: pointer;
-}
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
