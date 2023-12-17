@@ -27,6 +27,12 @@ class Rentals extends Component {
             this.setState({ loading: false });
         }
     };
+
+    formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+
     render() {
         const { rentals, loading } = this.state;
         return (
@@ -47,6 +53,7 @@ class Rentals extends Component {
                                 <th>End Rental Date</th>
                                 <th>Price</th>
                                 <th>Rental Status</th>
+                                <th>Payment Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,10 +63,11 @@ class Rentals extends Component {
                                     <td>{rental.renterName}</td>
                                     <td>{rental.licensePlate}</td>
                                     <td>{rental.vehicleOwner}</td>
-                                    <td>{rental.startRental}</td>
-                                    <td>{rental.endRental}</td>
+                                    <td>{this.formatDate(rental.startRental)}</td>
+                                    <td>{this.formatDate(rental.endRental)}</td>
                                     <td>{rental.price}</td>
                                     <td>{rental.rentalStatus}</td>
+                                    <td>{rental.paymentStatus}</td>
                                 </tr>
                             ))}
                         </tbody>

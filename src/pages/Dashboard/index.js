@@ -23,7 +23,7 @@ class Dashboard extends Component {
     const { activeTab } = this.state;
     return (
       <div class="row">
-        <div class="col-3 d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '280px', height: '97vh' }}>
+        <div class="col-2 d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '280px', height: '97vh' }}>
           <h2 class="fs-4 text-center">Joiner</h2>
           <hr />
           <ul class="nav nav-pills flex-column mb-auto">
@@ -60,7 +60,7 @@ class Dashboard extends Component {
             </Link>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-10">
           <Switch>
             <Route path="/dashboard/users" component={Users} />
             <Route path="/dashboard/carRentalUsers" component={CarRentalUsers} />
