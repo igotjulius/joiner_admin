@@ -6,6 +6,7 @@ class Cars extends Component {
         this.state = {
             cars: [],
             loading: true,
+            searchInput: '',
         };
     }
 
@@ -15,11 +16,12 @@ class Cars extends Component {
 
     fetchCarsData = async () => {
         try {
-            const response = await fetch('https://joiner-backend-v4.onrender.com/a/cars');
+            const response = await fetch('http://localhost:443/a/cars');
             const data = await response.json();
 
             this.setState({
                 cars: data,
+                filteredCars: data,
                 loading: false,
             });
         } catch (error) {
@@ -27,11 +29,39 @@ class Cars extends Component {
             this.setState({ loading: false });
         }
     };
+
+    handleSearchChange = (event) => {
+        const { value } = event.target;
+        this.setState({ searchInput: value }, () => {
+            this.filterCars();
+        });
+    };
+
+    filterCars = () => {
+        const { cars, searchInput } = this.state;
+        const filteredCars = cars.filter((car) =>
+            Object.values(car).some((field) =>
+                field.toString().toLowerCase().includes(searchInput.toLowerCase())
+            )
+        );
+        this.setState({ filteredCars });
+    };
+
     render() {
-        const { cars, loading } = this.state;
+        const { filteredCars, searchInput, loading } = this.state;
         return (
             <div>
                 <h1>Cars Page</h1>
+                
+                <div>
+                    <label class="search">Search:</label>
+                    <input
+                        type="text"
+                        name="searchInput"
+                        value={searchInput}
+                        onChange={this.handleSearchChange}
+                    />
+                </div>
 
                 {loading ? (
                     <p>Loading...</p>
@@ -48,13 +78,13 @@ class Cars extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {cars.map((car) => (
+                            {filteredCars.map((car) => (
                                 <tr key={car._id}>
                                     <td>{car._id}</td>
                                     <td>{car.ownerName}</td>
                                     <td>{car.licensePlate}</td>
                                     <td>{car.vehicleType}</td>
-                                    <td>{car.price}</td>
+                                    <td>&#8369;{car.price.toFixed(2)}</td>
                                     <td>{car.availability}</td>
                                 </tr>
                             ))}

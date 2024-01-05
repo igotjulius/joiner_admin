@@ -8,9 +8,9 @@ class CarRentalUsers extends Component {
         this.state = {
             cra_users: [],
             loading: true,
-            hoveredUserId: null,
             showModal: false,
-            userIdToDelete: null
+            userIdToDelete: null,
+            searchInput: '',
         };
     }
 
@@ -20,11 +20,12 @@ class CarRentalUsers extends Component {
 
     fetchCraUserData = async () => {
         try {
-            const response = await fetch('https://joiner-backend-v4.onrender.com/a/craUsers');
+            const response = await fetch('http://localhost:443/a/craUsers');
             const data = await response.json();
 
             this.setState({
                 cra_users: data,
+                filteredCraUsers: data,
                 loading: false,
             });
         } catch (error) {
@@ -33,14 +34,24 @@ class CarRentalUsers extends Component {
         }
     };
 
-    handleMouseEnter = (userId) => {
-        this.setState({ hoveredUserId: userId });
+    handleSearchChange = (event) => {
+        const { value } = event.target;
+        this.setState({ searchInput: value }, () => {
+            this.filterCraUsers();
+        });
     };
 
-    handleMouseLeave = () => {
-        this.setState({ hoveredUserId: null });
+    filterCraUsers = () => {
+        const { cra_users, searchInput } = this.state;
+        const filteredCraUsers = cra_users.filter((cra_users) =>
+            Object.values(cra_users).some((field) =>
+                field.toString().toLowerCase().includes(searchInput.toLowerCase())
+            )
+        );
+        this.setState({ filteredCraUsers });
     };
-    
+
+
     handleDelete = (userId) => {
         this.setState({ showModal: true, userIdToDelete: userId });
     };
@@ -50,78 +61,117 @@ class CarRentalUsers extends Component {
     };
 
     handleConfirmDelete = async () => {
-        const { userIdToDelete } = this.state;
-        try {
-            const response = await fetch(`https://joiner-backend-v4.onrender.com/a/deleteCraUser/${userIdToDelete}`, {
-                method: 'DELETE',
-            });
+        const { userIdToDelete, cra_users } = this.state;
+        const userToDelete = cra_users.find(cra_users => cra_users._id === userIdToDelete);
 
-            if (response.ok) {
-                const updatedUsers = this.state.users.filter((cra_users) => cra_users._id !== userIdToDelete);
-                this.setState({ cra_users: updatedUsers });
+        if (!userToDelete) {
+            console.error('User not found');
+            return;
+        }
+
+        const { password, email } = userToDelete;
+
+        try {
+            if (password === '') {
+                const resetPasswordResponse = await fetch('http://localhost:443/resetPassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                    }),
+                });
+
+                if (resetPasswordResponse.ok) {
+                    this.setState({ highlightedUserId: null });
+                    window.location.reload();
+                } else {
+                    console.error('Failed to reset password:', resetPasswordResponse.statusText);
+                }
             } else {
-                console.error('Failed to delete user:', response.statusText);
+                // If user's password is not null, disable the account
+                const disableUserResponse = await fetch(`http://localhost:443/a/disableCraUser/${userIdToDelete}`, {
+                    method: 'POST',
+                });
+
+                if (disableUserResponse.ok) {
+                    this.setState({ highlightedUserId: userIdToDelete });
+                } else {
+                    console.error('Failed to disable account:', disableUserResponse.statusText);
+                }
             }
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.error('Error:', error);
         }
+
         this.setState({ showModal: false, userIdToDelete: null });
     };
 
 
     render() {
-        const { cra_users, loading, hoveredUserId, showModal, userIdToDelete } = this.state;
+        const { filteredCraUsers, searchInput, loading, showModal, userIdToDelete, highlightedUserId } = this.state;
         return (
             <div class="table-container">
-                <h1>Car Rental Owners Page</h1>
+                <h1>Car Rental Users Page</h1>
+
+                <div>
+                    <label class="search">Search:</label>
+                    <input
+                        type="text"
+                        name="searchInput"
+                        value={searchInput}
+                        onChange={this.handleSearchChange}
+                    />
+                </div>
 
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
                     <>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cra_users.map((cra_users) => (
-                                <tr
-                                key={cra_users._id}
-                                onMouseEnter={() => this.handleMouseEnter(cra_users._id)}
-                                onMouseLeave={this.handleMouseLeave}
-                            >
-                                    <td>{cra_users._id}</td>
-                                    <td>{cra_users.firstName}</td>
-                                    <td>{cra_users.lastName}</td>
-                                    <td>{cra_users.email}</td>
-                                    <td>
-                                            {hoveredUserId === cra_users._id && (
-                                                <span
-                                                    class="delete-icon"
-                                                    onClick={() => this.handleDelete(cra_users._id)}
-                                                >
-                                                    <i className="fas fa-trash-alt"></i>
-                                                </span>
-                                            )}
-                                        </td>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Disable/Enable</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    {showModal && (
-                        <Modal
-                            userId={userIdToDelete}
-                            onCancel={this.handleCancelDelete}
-                            onConfirm={this.handleConfirmDelete}
-                        />
-                    )}
-                </>
+                            </thead>
+                            <tbody>
+                                {filteredCraUsers.map((cra_users) => (
+                                    <tr style={{ backgroundColor: highlightedUserId === cra_users._id || cra_users.password === '' ? 'rgba(0, 0, 0, 0.2)' : '' }}>
+                                        <td>{cra_users._id}</td>
+                                        <td>{cra_users.firstName}</td>
+                                        <td>{cra_users.lastName}</td>
+                                        <td>{cra_users.email}</td>
+                                        <td className="text-center">
+                                            <span
+                                                onClick={() => this.handleDelete(cra_users._id)}
+                                                data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="Disable/Enable Account"
+                                            >
+                                                {highlightedUserId === cra_users._id || cra_users.password === '' ? (
+                                                    <i className="fas fa-check fa-lg"></i>
+                                                ) : (
+                                                    <i className="fas fa-ban fa-lg"></i> 
+                                                )}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {showModal && (
+                            <Modal
+                                userId={userIdToDelete}
+                                onCancel={this.handleCancelDelete}
+                                onConfirm={this.handleConfirmDelete}
+                            />
+                        )}
+                    </>
                 )}
             </div>
         );

@@ -26,7 +26,7 @@ class Login extends Component {
   handleLogin = async () => {
     const {password } = this.state;
 
-    const apiUrl = 'https://joiner-backend-v4.onrender.com/a/login';
+    const apiUrl = 'http://localhost:443/a/login';
 
     try {
       const response = await fetch(apiUrl, {

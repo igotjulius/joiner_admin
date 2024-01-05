@@ -6,6 +6,7 @@ class Rentals extends Component {
         this.state = {
             rentals: [],
             loading: true,
+            searchInput: '',
         };
     }
 
@@ -15,11 +16,12 @@ class Rentals extends Component {
 
     fetchRentalsData = async () => {
         try {
-            const response = await fetch('https://joiner-backend-v4.onrender.com/a/rentals');
+            const response = await fetch('http://localhost:443/a/rentals');
             const data = await response.json();
 
             this.setState({
                 rentals: data,
+                filteredRentals: data,
                 loading: false,
             });
         } catch (error) {
@@ -28,16 +30,42 @@ class Rentals extends Component {
         }
     };
 
+    handleSearchChange = (event) => {
+        const { value } = event.target;
+        this.setState({ searchInput: value }, () => {
+            this.filterRentals();
+        });
+    };
+
+    filterRentals = () => {
+        const { rentals, searchInput } = this.state;
+        const filteredRentals = rentals.filter((rental) =>
+            Object.values(rental).some((field) =>
+                field.toString().toLowerCase().includes(searchInput.toLowerCase())
+            )
+        );
+        this.setState({ filteredRentals });
+    };
     formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
     render() {
-        const { rentals, loading } = this.state;
+        const { filteredRentals, loading, searchInput } = this.state;
         return (
             <div>
                 <h1>Rentals Page</h1>
+
+                <div>
+                    <label class="search">Search:</label>
+                    <input
+                        type="text"
+                        name="searchInput"
+                        value={searchInput}
+                        onChange={this.handleSearchChange}
+                    />
+                </div>
 
                 {loading ? (
                     <p>Loading...</p>
@@ -57,7 +85,7 @@ class Rentals extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {rentals.map((rental) => (
+                            {filteredRentals.map((rental) => (
                                 <tr key={rental._id}>
                                     <td>{rental._id}</td>
                                     <td>{rental.renterName}</td>
@@ -65,7 +93,7 @@ class Rentals extends Component {
                                     <td>{rental.vehicleOwner}</td>
                                     <td>{this.formatDate(rental.startRental)}</td>
                                     <td>{this.formatDate(rental.endRental)}</td>
-                                    <td>{rental.price}</td>
+                                    <td>&#8369;{rental.price.toFixed(2)}</td>
                                     <td>{rental.rentalStatus}</td>
                                     <td>{rental.paymentStatus}</td>
                                 </tr>

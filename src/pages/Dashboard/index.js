@@ -36,7 +36,7 @@ class Dashboard extends Component {
             <li>
               <Link to="/dashboard/carRentalUsers" class={`nav-link link-dark fs-sidebar ${activeTab === '/dashboard/carRentalUsers' ? 'active-tab' : ''}`} onClick={() => this.handleTabClick('/dashboard/carRentalUsers')}>
                 <i class="fas fa-solid fa-user" style={{ paddingRight: '10px' }}></i>
-                Car Rental Owners
+                Car Rental Users
               </Link>
             </li>
             <li>

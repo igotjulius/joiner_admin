@@ -5,7 +5,7 @@ const deleteModal = ({ userId, onCancel, onConfirm }) => {
         <div className="modal">
             <div className="modal-content">
                 <p className="text-center fs-6" style={{ fontSize: '20px' }}>
-                    {`Are you sure you want to delete `}<br/>
+                    {`Are you sure you want to disable/enable `}<br/>
                     <strong>User ID: {userId}</strong>
                     {`?`}
                 </p>
