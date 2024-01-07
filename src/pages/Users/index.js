@@ -98,6 +98,7 @@ class Users extends Component {
     
                 if (disableUserResponse.ok) {
                     this.setState({ highlightedUserId: userIdToDelete });
+                    window.location.reload();
                 } else {
                     console.error('Failed to disable account:', disableUserResponse.statusText);
                 }
