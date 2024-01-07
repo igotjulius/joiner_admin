@@ -24,13 +24,13 @@ class Dashboard extends Component {
     return (
       <div class="row">
         <div class="col-2 d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '280px', height: '97vh' }}>
-          <h2 class="fs-4 text-center">Joiner</h2>
+          <h1 class="fs-4 text-center">JOINER</h1>
           <hr />
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
               <Link to="/dashboard/users" class={`nav-link fs-sidebar ${activeTab === '/dashboard/users' ? 'active-tab' : ''}`} aria-current="page" onClick={() => this.handleTabClick('/dashboard/users')}>
                 <i class="fas fa-solid fa-user" style={{ paddingRight: '10px' }}></i>
-                Users
+                Joiners
               </Link>
             </li>
             <li>

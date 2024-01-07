@@ -115,7 +115,7 @@ class Users extends Component {
 
         return (
             <div className="table-container">
-                <h1>Users Page</h1>
+                <h1>Joiners Page</h1>
 
                 <div>
                     <label class="search">Search:</label>

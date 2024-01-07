@@ -47,9 +47,21 @@ class Rentals extends Component {
         this.setState({ filteredRentals });
     };
     formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
+        const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: 'numeric', 
+            minute: 'numeric', 
+            hour12: true,
+        };
+    
+        const adjustedDate = new Date(dateString);
+        adjustedDate.setHours(adjustedDate.getHours() - 8); // Deduct 8 hours
+    
+        return adjustedDate.toLocaleDateString('en-US', options);
     };
+    
 
     render() {
         const { filteredRentals, loading, searchInput } = this.state;
@@ -81,7 +93,6 @@ class Rentals extends Component {
                                 <th>End Rental Date</th>
                                 <th>Price</th>
                                 <th>Rental Status</th>
-                                <th>Payment Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,7 +106,6 @@ class Rentals extends Component {
                                     <td>{this.formatDate(rental.endRental)}</td>
                                     <td>&#8369;{rental.price.toFixed(2)}</td>
                                     <td>{rental.rentalStatus}</td>
-                                    <td>{rental.paymentStatus}</td>
                                 </tr>
                             ))}
                         </tbody>
