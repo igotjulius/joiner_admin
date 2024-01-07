@@ -21,7 +21,7 @@ class CarRentalUsers extends Component {
 
     fetchCraUserData = async () => {
         try {
-            const response = await fetch(`${serverUrl}a/craUsers`);
+            const response = await fetch(`${serverUrl}/a/craUsers`);
             const data = await response.json();
 
             this.setState({

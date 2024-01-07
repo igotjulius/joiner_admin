@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './index.css';
 import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import Cars from '../Cars';
@@ -11,9 +11,25 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: ''
+      activeTab: '/dashboard/joiners'
     };
   }
+  
+  componentDidMount() {
+    this.updateActiveTab();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.updateActiveTab();
+    }
+  }
+
+  updateActiveTab = () => {
+    const { pathname } = this.props.location;
+    this.setState({ activeTab: pathname });
+  };
+
 
   handleTabClick = (tab) => {
     this.setState({ activeTab: tab });
@@ -21,9 +37,10 @@ class Dashboard extends Component {
 
   render() {
     const { activeTab } = this.state;
+  
     return (
       <div class="row">
-        <div class="col-2 d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '280px', height: '97vh' }}>
+        <div class="col-2 d-flex flex-column flex-shrink-0 p-3 bg-light" style={{ width: '280px', height: '100%', position: 'fixed' }}>
           <h1 class="fs-4 text-center">JOINER</h1>
           <hr />
           <ul class="nav nav-pills flex-column mb-auto">
@@ -60,9 +77,9 @@ class Dashboard extends Component {
             </Link>
           </div>
         </div>
-        <div class="col-10">
+        <div className="col-10" style={{ marginLeft: '225px', overflowX: 'hidden' }}>
           <Switch>
-            <Route path="/dashboard/users" component={Users} />
+            <Route path="/dashboard/joiners" component={Users} />
             <Route path="/dashboard/carRentalUsers" component={CarRentalUsers} />
             <Route path="/dashboard/cars" component={Cars} />
             <Route path="/dashboard/rentals" component={Rentals} />
@@ -73,4 +90,4 @@ class Dashboard extends Component {
   };
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

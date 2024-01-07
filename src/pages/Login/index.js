@@ -42,7 +42,7 @@ class Login extends Component {
 
 
       if (response.ok) {
-        this.props.history.push('/dashboard/users');
+        this.props.history.push('/dashboard/joiners');
       } else {
         console.log('Login failed');
         this.setState({ errorMessage: 'Invalid Password' });

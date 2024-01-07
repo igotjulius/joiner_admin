@@ -93,7 +93,7 @@ class Rentals extends Component {
                                 <th>Start Rental Date</th>
                                 <th>End Rental Date</th>
                                 <th>Price</th>
-                                <th>Rental Status</th>
+                                {/* <th>Rental Status</th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -106,7 +106,7 @@ class Rentals extends Component {
                                     <td>{this.formatDate(rental.startRental)}</td>
                                     <td>{this.formatDate(rental.endRental)}</td>
                                     <td>&#8369;{rental.price.toFixed(2)}</td>
-                                    <td>{rental.rentalStatus}</td>
+                                    {/* <td>{rental.rentalStatus}</td> */}
                                 </tr>
                             ))}
                         </tbody>

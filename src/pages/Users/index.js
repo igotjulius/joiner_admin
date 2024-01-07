@@ -21,7 +21,7 @@ class Users extends Component {
 
     fetchUserData = async () => {
         try {
-            const response = await fetch('http://localhost:443/a/users');
+            const response = await fetch(`${serverUrl}/a/users`);
             const data = await response.json();
 
             this.setState({
