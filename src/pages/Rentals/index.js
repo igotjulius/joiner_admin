@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import serverUrl from '../../serverUrl';
 
 class Rentals extends Component {
     constructor() {
@@ -16,7 +17,7 @@ class Rentals extends Component {
 
     fetchRentalsData = async () => {
         try {
-            const response = await fetch('http://localhost:443/a/rentals');
+            const response = await fetch(`${serverUrl}/a/rentals`);
             const data = await response.json();
 
             this.setState({

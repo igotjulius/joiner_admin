@@ -28,7 +28,7 @@ class Dashboard extends Component {
           <hr />
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <Link to="/dashboard/users" class={`nav-link fs-sidebar ${activeTab === '/dashboard/users' ? 'active-tab' : ''}`} aria-current="page" onClick={() => this.handleTabClick('/dashboard/users')}>
+              <Link to="/dashboard/joiners" class={`nav-link fs-sidebar ${activeTab === '/dashboard/joiners' ? 'active-tab' : ''}`} aria-current="page" onClick={() => this.handleTabClick('/dashboard/joiners')}>
                 <i class="fas fa-solid fa-user" style={{ paddingRight: '10px' }}></i>
                 Joiners
               </Link>

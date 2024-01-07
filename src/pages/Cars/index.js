@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import serverUrl from '../../serverUrl';
+
 
 class Cars extends Component {
     constructor() {
@@ -16,7 +18,7 @@ class Cars extends Component {
 
     fetchCarsData = async () => {
         try {
-            const response = await fetch('http://localhost:443/a/cars');
+            const response = await fetch(`${serverUrl}/a/cars`);
             const data = await response.json();
 
             this.setState({

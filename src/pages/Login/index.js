@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import serverUrl from '../../serverUrl';
 
 class Login extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Login extends Component {
   handleLogin = async () => {
     const {password } = this.state;
 
-    const apiUrl = 'http://localhost:443/a/login';
+    const apiUrl = `${serverUrl}/a/login`;
 
     try {
       const response = await fetch(apiUrl, {

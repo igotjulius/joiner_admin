@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from './deleteModal';
 import './index.css';
+import serverUrl from '../../serverUrl';
 
 class Users extends Component {
     constructor() {
@@ -73,7 +74,7 @@ class Users extends Component {
     
         try {
             if (password === '') {
-                const resetPasswordResponse = await fetch('http://localhost:443/resetPassword', {
+                const resetPasswordResponse = await fetch(`${serverUrl}/resetPassword`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ class Users extends Component {
                 }
             } else {
                 // If user's password is not null, disable the account
-                const disableUserResponse = await fetch(`http://localhost:443/a/disableUser/${userIdToDelete}`, {
+                const disableUserResponse = await fetch(`${serverUrl}/a/disableUser/${userIdToDelete}`, {
                     method: 'POST',
                 });
     
