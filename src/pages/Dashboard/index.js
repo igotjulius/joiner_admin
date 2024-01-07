@@ -77,7 +77,7 @@ class Dashboard extends Component {
             </Link>
           </div>
         </div>
-        <div className="col-10" style={{ marginLeft: '225px', overflowX: 'hidden' }}>
+        <div className="col-10" style={{ marginLeft: '16%'}}>
           <Switch>
             <Route path="/dashboard/joiners" component={Users} />
             <Route path="/dashboard/carRentalUsers" component={CarRentalUsers} />
