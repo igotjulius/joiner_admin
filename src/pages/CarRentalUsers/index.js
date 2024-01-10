@@ -74,7 +74,7 @@ class CarRentalUsers extends Component {
 
         try {
             if (password === '') {
-                const resetPasswordResponse = await fetch(`${serverUrl}\resetPassword`, {
+                const resetPasswordResponse = await fetch(`${serverUrl}/resetPassword`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -98,6 +98,7 @@ class CarRentalUsers extends Component {
 
                 if (disableUserResponse.ok) {
                     this.setState({ highlightedUserId: userIdToDelete });
+                    window.location.reload();
                 } else {
                     console.error('Failed to disable account:', disableUserResponse.statusText);
                 }
